@@ -3,4 +3,17 @@ body {
     text-align: center;
     font-family: sans-serif;
     color: cadetblue;
+    margin: 0 auto;
+}
+#container{
+    margin: 0 auto;
+    padding: 1em;
+    border: 2px solid gray;
+    width: 70%;
+
+
+}
+#post{
+
+    font-size: 20px;
 }
