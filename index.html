@@ -10,34 +10,21 @@
 <body>
     <div id ="container">
         <div id="cabecera">
-           <strong>Git-Hub</strong> version beta 20.0.4
+           <strong>Notificaciones Push</strong> 
 
         </div>
         <div id="post">
             <h1>mi blog</h1>
             <p>este blog pertenece a ronni carrascal</p>
+            <input type="text" id="notificar" placeholder="id del personaje">
+            <button title="Notificar" id="buttonNotificar" type="submit" >Notificar</button>
 
         </div>
     </div>
 
     <script src="app.js"></script>
     <script src="js/push.min.js"></script>
-    <script>
-        function saludo() {
-            Push.create("Hola mundo",{
-                body: "Este es el cuerpo de la notificacion",
-                icon: "img/logo.jpg",
-                timeout: 4000,
-                onClick: function () {
-                    window.location="https://nickersoft.github.io/push.js/";
-                    this.close();
-                }
-            });
-        }
-    
-        setTimeout ( saludo, 2000 ) ;
-        
-        </script>
+    <script src="js/notification.js"></script>
 
 </body>
 </html>
