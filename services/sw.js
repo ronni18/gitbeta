@@ -1,55 +1,39 @@
-self.addEventListener('fetch', event =>{
-   
-   console.log("events",event)
+var CACHE_NAME = 'cache-v1';
+var urlsToCache = [
+  '/',
+  '/app.js',
+  '/index.html',
+  '/img/01.jpg',
+  '/img/02.jpg',
+  '/img/03.jpg',
+  '/css/styles.css',
+  '/js/push.min.js',
+  '/js/notification.js',
+  '/css/bootstrap.min.css', 
+  'https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900',
+  'https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i'
+];
 
-   /* if (event.request.url.includes('estilos.css')) {
-      event.respondWith( null)
-      
-   }else{
-      event.respondWith( fetch( event.request));
-   } */
-
-
+ // se instala el service worker
+self.addEventListener('install', function(event) {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(function(cache) {
+        console.log('dentro del cache');
+        return cache.addAll(urlsToCache);
+      })
+  );
 });
 
-
-
-
-
-/* const version = "cache v1" ;
-
-self.addEventListener('install', function(event) {// installar el serviceWorker
-
-   event.waitUntil(preCache());
-}); */
-
-/* self.addEventListener('fetch', event => {
-   const request = event.request;
-   /// atrapar las peticiones GET
-   if (request.method !== 'GET') {
-      return;
-   }
-
-   ///buscar en cache
-   event.respondWith(cachedResponse(request))
-})
-
-async function preCache() {
-   const cache = await caches.open(version);
-   return cache.addAll([
-      '/',
-      '/index.html',
-      '/css/estilos.css',
-      '/js/notification.js',
-      '/js/push.min.js',
-   ]);
-     
-}
-async function cachedResponse(request) {
-   const cache = await caches.open(version);
-   const response = await cache.match(request) // se pregunta si se tienen las peticiones cacheadas
-   return response || fetch(request);
-   
-} */
-
-console.log("entro al worker")
+// se crea la respuesta a las peticiones cacheadas
+self.addEventListener('fetch', function(event) {
+    event.respondWith(
+        caches.match(event.request)
+        .then(function(response) {
+            if (response) {
+                return response;
+            }
+            return fetch(event.request);
+        })
+    );
+});
