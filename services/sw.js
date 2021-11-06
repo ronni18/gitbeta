@@ -1,12 +1,41 @@
-let cache_v1= "cache v1" ;
+self.addEventListener('fetch', event =>{
+   
+   console.log("events",event)
 
-self.addEventListener('install', function(event) {
+   /* if (event.request.url.includes('estilos.css')) {
+      event.respondWith( null)
+      
+   }else{
+      event.respondWith( fetch( event.request));
+   } */
 
-   event.waitUntil(preCache() );
- });
+
+});
+
+
+
+
+
+/* const version = "cache v1" ;
+
+self.addEventListener('install', function(event) {// installar el serviceWorker
+
+   event.waitUntil(preCache());
+}); */
+
+/* self.addEventListener('fetch', event => {
+   const request = event.request;
+   /// atrapar las peticiones GET
+   if (request.method !== 'GET') {
+      return;
+   }
+
+   ///buscar en cache
+   event.respondWith(cachedResponse(request))
+})
 
 async function preCache() {
-   const cache = await caches.open(cache_v1);
+   const cache = await caches.open(version);
    return cache.addAll([
       '/',
       '/index.html',
@@ -16,5 +45,11 @@ async function preCache() {
    ]);
      
 }
+async function cachedResponse(request) {
+   const cache = await caches.open(version);
+   const response = await cache.match(request) // se pregunta si se tienen las peticiones cacheadas
+   return response || fetch(request);
+   
+} */
 
 console.log("entro al worker")
